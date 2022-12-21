@@ -258,3 +258,12 @@ phone_number, email, login, job_title_id) VALUES (%L, %L, %L, %L, %L,
 job_title_id);
 END;
 $$ LANGUAGE plpgsql;
+
+
+--pass table 
+CREATE TABLE employee_passwords
+(
+employee_password_id bigserial NOT NULL,
+hashed_password varchar(256) NOT NULL,
+PRIMARY KEY (employee_password_id)
+) WITHOUT OIDS;
