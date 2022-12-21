@@ -245,3 +245,16 @@ create index contact_person_id_idx on client_contact(client_id);
 create index contract_id_idx on contract(contract_id);
 create index equipment_id_idx on equipment(equipment_id);
 
+-- procedure
+CREATE OR REPLACE PROCEDURE new_employee (new_login VARCHAR(50), first_name
+VARCHAR(50), last_name VARCHAR(50), phone_number VARCHAR(15), email
+VARCHAR(320), job_title_id INTEGER, hashed_password VARCHAR(256)) AS $$
+BEGIN
+EXECUTE format('INSERT INTO employee_passwords (hashed_password) VALUES
+(%L)', hashed_password);
+EXECUTE format('INSERT INTO employee (first_name, last_name,
+phone_number, email, login, job_title_id) VALUES (%L, %L, %L, %L, %L,
+%L)', first_name, last_name, phone_number, email, new_login,
+job_title_id);
+END;
+$$ LANGUAGE plpgsql;
